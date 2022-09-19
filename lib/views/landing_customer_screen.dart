@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/controllers/auth_controller.dart';
+import 'package:multi_vendor/controllers/snack_bar_controller.dart';
 
 
 
@@ -16,6 +17,28 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool isLoading = false;
+
+  signUp() async {
+
+    setState(() {
+      isLoading = true;
+    });
+    String res = await _authController.signUpUsers(_fullNameController.text,
+        _emailController.text, _passwordController.text);
+
+      setState(() {
+        isLoading = false;
+      });
+
+      if(res != 'success') {
+        return snackbar(res, context);
+      }
+      else {
+        print('You have navigated to the home screen');
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,8 +177,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                   const SizedBox(height: 40,),
                   TextButton(
                     onPressed: () {
-                      _authController.signUpUsers(_fullNameController.text,
-                          _emailController.text, _passwordController.text);
+                      signUp();
                     },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.only(top: 20, bottom: 20),
@@ -165,10 +187,13 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                           ),
                           minimumSize:const  Size.fromHeight(50),
                         ),
-                        child: const Text(
+                        child: isLoading ? const CircularProgressIndicator(
+                          color: Colors.white,) :
+                           const Text(
                           'Sign up',
                           style: TextStyle(
-                            fontSize: 20
+                            fontSize: 20,
+                            color: Colors.white
                           ),
                         ),
                   ),

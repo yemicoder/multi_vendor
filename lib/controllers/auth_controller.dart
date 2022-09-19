@@ -20,10 +20,11 @@ class AuthController {
           'email' : email,
         });
             res = 'success';
-            print("acount created");
+            print("account created");
       }
       else {
         res = 'Please fields must not be empty';
+        print(res);
       }
     }
     catch (e) {
