@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/controllers/auth_controller.dart';
 
 
 
@@ -10,17 +11,18 @@ class LandingCustomerScreen extends StatefulWidget {
 }
 
 class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
+  final AuthController _authController =  AuthController();
   bool passwordVisible = true;
-  TextEditingController _fullNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text(
+        title: const Text(
           'MULTI VENDOR',
           style: TextStyle(
             fontSize: 30
@@ -53,11 +55,11 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 80,
                         backgroundColor: Colors.grey,
                       ),
-                      SizedBox(width: 40,),
+                      const SizedBox(width: 40,),
                       Column(
                         children: [
                           Container(
@@ -69,10 +71,10 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                             ),
                             child: IconButton(onPressed: () {},
                               color: Colors.white,
-                            icon: Icon(Icons.camera_alt, size: 30,),
+                            icon: const Icon(Icons.camera_alt, size: 30,),
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           Container(
                             height: 60,
                             width: 60,
@@ -82,58 +84,58 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                             ),
                             child: IconButton(onPressed: () {},
                               color: Colors.white,
-                              icon: Icon(Icons.image, size: 30,),
+                              icon: const Icon(Icons.image, size: 30,),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
                   TextField(
                     controller: _fullNameController,
                     decoration: InputDecoration(
                       labelText: 'Full Name',
-                      contentPadding: EdgeInsets.only
+                      contentPadding:  const EdgeInsets.only
                         (left: 20, top: 30, bottom: 30),
                       hintText: 'Full Name',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.purple,
                           width: 1.5,
                         ),
                       )
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only
+                        contentPadding: const EdgeInsets.only
                           (left: 20, top: 30, bottom: 30),
                         labelText: 'Email',
                         hintText: 'Enter your email address',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                               color: Colors.pink
                           ),
                         )
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   TextField(
                     controller: _passwordController,
                     obscureText: passwordVisible,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only
+                        contentPadding: const EdgeInsets.only
                           (left: 20, top: 30, bottom: 30),
                         labelText: 'Password',
                         hintText: 'Enter your password',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                               color: Colors.pink
                           ),
                         ),
@@ -143,32 +145,32 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                             passwordVisible = !passwordVisible;
                           });
                         },
-                        icon: passwordVisible ? Icon(Icons.visibility)
+                        icon: passwordVisible ? const Icon(Icons.visibility)
                             : Icon(Icons.visibility_off),
 
                       ),
                     ),
                   ),
                   const SizedBox(height: 40,),
-                  ElevatedButton(onPressed: () {
-                    print(_fullNameController.text);
-                    print(_emailController.text);
-                    print(_passwordController.text);
-                  },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.only(top: 20, bottom: 20),
-                        primary: Colors.purple,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
+                  TextButton(
+                    onPressed: () {
+                      _authController.signUpUsers(_fullNameController.text,
+                          _emailController.text, _passwordController.text);
+                    },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.only(top: 20, bottom: 20),
+                          primary: Colors.purple,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          minimumSize:const  Size.fromHeight(50),
                         ),
-                        minimumSize: Size.fromHeight(50),
-                      ),
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(
-                          fontSize: 20
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            fontSize: 20
+                          ),
                         ),
-                      ),
                   ),
                     const SizedBox(height: 20,),
                   Row(
