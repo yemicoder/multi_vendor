@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:multi_vendor/controllers/auth_controller.dart';
 import 'package:multi_vendor/controllers/snack_bar_controller.dart';
 
@@ -17,8 +20,25 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  Uint8List? image;
 
   bool isLoading = false;
+
+  pickImageFromGallery() async {
+    Uint8List im = await _authController.pickImage(ImageSource.gallery);
+
+    setState(() {
+      image = im;
+    });
+  }
+
+  pickImageFromCamera() async {
+    Uint8List im = await _authController.pickImage(ImageSource.camera);
+
+    setState(() {
+      image = im;
+    });
+  }
 
   signUp() async {
 
@@ -26,7 +46,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
       isLoading = true;
     });
     String res = await _authController.signUpUsers(_fullNameController.text,
-        _emailController.text, _passwordController.text);
+        _emailController.text, _passwordController.text, image);
 
       setState(() {
         isLoading = false;
@@ -36,7 +56,9 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
         return snackbar(res, context);
       }
       else {
+        res = "You're logged in";
         print('You have navigated to the home screen');
+        return snackbar(res, context);
       }
   }
 
@@ -78,7 +100,11 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircleAvatar(
+                      image != null ? CircleAvatar(
+                        radius: 80,
+                        backgroundImage: MemoryImage(image!),
+                      ) :
+                      CircleAvatar(
                         radius: 80,
                         backgroundColor: Colors.grey,
                       ),
@@ -92,7 +118,9 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                                 color: Colors.blue,
                               borderRadius: BorderRadius.circular(30)
                             ),
-                            child: IconButton(onPressed: () {},
+                            child: IconButton(onPressed: () {
+                              pickImageFromCamera();
+                            },
                               color: Colors.white,
                             icon: const Icon(Icons.camera_alt, size: 30,),
                             ),
@@ -105,7 +133,9 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                                 color: Colors.blue,
                                 borderRadius: BorderRadius.circular(30)
                             ),
-                            child: IconButton(onPressed: () {},
+                            child: IconButton(onPressed: () {
+                              pickImageFromGallery();
+                            },
                               color: Colors.white,
                               icon: const Icon(Icons.image, size: 30,),
                             ),
