@@ -24,6 +24,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   Uint8List? image;
 
   bool isLoading = false;
+  bool imageLoaded = false;
 
   pickImageFromGallery() async {
     Uint8List im = await authController.pickImage(ImageSource.gallery);
@@ -34,7 +35,14 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   }
 
   pickImageFromCamera() async {
+    setState(() {
+      imageLoaded =  false;
+    });
     Uint8List im = await authController.pickImage(ImageSource.camera);
+
+    setState(() {
+      imageLoaded = true;
+    });
 
     setState(() {
       image = im;
@@ -85,7 +93,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                         color: Colors.black
                       ),
                       ),
-                      Icon(Icons.person, color: Colors.blue, size: 60,),
+                      Icon(Icons.person, color: Colors.purple, size: 60,),
                     ],
                   ),
                   const SizedBox(height: 60,),
@@ -93,12 +101,13 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       image != null ? CircleAvatar(
-                        radius: 80,
+                        radius: 100,
                         backgroundImage: MemoryImage(image!),
                       ) :
-                      const CircleAvatar(
-                        radius: 80,
+                      CircleAvatar(
+                        radius: 100,
                         backgroundColor: Colors.grey,
+                        backgroundImage: AssetImage('assets/images/dummy-profile-pic.png'),
                       ),
                       const SizedBox(width: 40,),
                       Column(
@@ -107,7 +116,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                             height: 60,
                             width: 60,
                             decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.purple,
                               borderRadius: BorderRadius.circular(30)
                             ),
                             child: IconButton(onPressed: () {
@@ -122,7 +131,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                             height: 60,
                             width: 60,
                             decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.purple,
                                 borderRadius: BorderRadius.circular(30)
                             ),
                             child: IconButton(onPressed: () {

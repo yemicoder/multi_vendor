@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/controllers/snack_bar_controller.dart';
+import 'package:multi_vendor/views/customer_home_screen.dart';
 import 'package:multi_vendor/views/landing_customer_screen.dart';
 
 import '../controllers/auth_controller.dart';
@@ -14,11 +15,20 @@ class CustomerLoginScreen extends StatefulWidget {
 class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
   final AuthController authController = AuthController();
   bool passwordVisible = false;
+  bool isLoading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   loginUsers() async {
+
+    setState(() {
+      isLoading = true;
+    });
     String res = await authController.loginUsers(_emailController.text, _passwordController.text);
+
+    setState(() {
+      isLoading = false;
+    });
 
     try {
       if (res != 'success') {
@@ -26,7 +36,9 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
       }
       else {
         res = "Login successful";
-        return (snackbar(res, context));
+        return (Navigator.of(context).push(MaterialPageRoute(builder: (context){
+          return CustomerHomeScreen();
+        })));
       }
     }
     catch (e) {
@@ -113,7 +125,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(35)),
                   ),
-                  child: const Text(
+                  child: isLoading ? CircularProgressIndicator(color: Colors.white,) : const Text(
                     "Login",
                     style: TextStyle(
                       fontSize: 20,

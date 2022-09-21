@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/views/customer_home_screen.dart';
 import 'package:multi_vendor/views/customer_login_screen.dart';
 import 'package:multi_vendor/views/landing_customer_screen.dart';
 
@@ -12,7 +13,7 @@ void main() async {
   return runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LandingCustomerScreen(),
+      home: CustomerHomeScreen(),
     )
   );
 }
