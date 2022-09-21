@@ -15,7 +15,7 @@ class LandingCustomerScreen extends StatefulWidget {
 }
 
 class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
-  final AuthController _authController =  AuthController();
+  final AuthController authController =  AuthController();
   bool passwordVisible = true;
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -25,7 +25,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   bool isLoading = false;
 
   pickImageFromGallery() async {
-    Uint8List im = await _authController.pickImage(ImageSource.gallery);
+    Uint8List im = await authController.pickImage(ImageSource.gallery);
 
     setState(() {
       image = im;
@@ -33,7 +33,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   }
 
   pickImageFromCamera() async {
-    Uint8List im = await _authController.pickImage(ImageSource.camera);
+    Uint8List im = await authController.pickImage(ImageSource.camera);
 
     setState(() {
       image = im;
@@ -45,7 +45,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
     setState(() {
       isLoading = true;
     });
-    String res = await _authController.signUpUsers(_fullNameController.text,
+    String res = await authController.signUpUsers(_fullNameController.text,
         _emailController.text, _passwordController.text, image);
 
       setState(() {
@@ -65,16 +65,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
-        title: const Text(
-          'MULTI VENDOR',
-          style: TextStyle(
-            fontSize: 30
-        ),
-        ),
-        centerTitle: true,
-      ),
+
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -84,19 +75,19 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
-                      Text ("Create Customer's Account",
+                      Text ("Create \nCustomer's Account",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                         color: Colors.black
                       ),
                       ),
-                      Icon(Icons.person, color: Colors.blue, size: 40,),
+                      Icon(Icons.person, color: Colors.blue, size: 60,),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 60,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -104,7 +95,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                         radius: 80,
                         backgroundImage: MemoryImage(image!),
                       ) :
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 80,
                         backgroundColor: Colors.grey,
                       ),
@@ -144,7 +135,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(height: 60,),
                   TextField(
                     controller: _fullNameController,
                     decoration: InputDecoration(
