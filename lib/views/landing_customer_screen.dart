@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_vendor/controllers/auth_controller.dart';
 import 'package:multi_vendor/controllers/snack_bar_controller.dart';
+import 'package:multi_vendor/views/customer_login_screen.dart';
 
 
 
@@ -56,7 +57,7 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
         return snackbar(res, context);
       }
       else {
-        res = "You're logged in";
+        res = "Registration successful";
         print('You have navigated to the home screen');
         return snackbar(res, context);
       }
@@ -230,7 +231,12 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
                       ),
                       const SizedBox(width: 20,),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)
+                          {
+                            return CustomerLoginScreen();
+                          }));
+                        },
                         child: const Text("Login",
                         style: TextStyle(
                           fontSize: 15,

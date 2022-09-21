@@ -7,6 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:multi_vendor/controllers/snack_bar_controller.dart';
+import 'package:multi_vendor/views/customer_login_screen.dart';
 
 class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -70,4 +73,28 @@ class AuthController {
     }
     return res;
   }
-}
+
+  // Function to login users
+
+  Future<String> loginUsers(String email, String password) async {
+    String res = 'you wanna login';
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = 'success';
+        print("login successful");
+      }
+      else {
+        res = 'login failed, fields must not be empty';
+        print(res);
+      }
+    }
+      catch (e) {
+        res = e.toString();
+        print(e.toString());
+      }
+
+      return res;
+    }
+  }
