@@ -74,7 +74,6 @@ class _LandingCustomerScreenState extends State<LandingCustomerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
