@@ -195,6 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
+
                   child: Column(
                     children: const [
                       ListTile(
@@ -226,7 +227,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           ),
-
         ],
       ),
     );
