@@ -12,7 +12,7 @@ class CartScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 80),
+              padding: const EdgeInsets.only(left: 200),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
@@ -34,13 +34,16 @@ class CartScreen extends StatelessWidget {
               color: Colors.blueGrey,
             ),
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 20,),
             Padding(
-              padding: const EdgeInsets.only(left: 100, right: 100),
+              padding: const EdgeInsets.only(left: 120, right: 120),
               child: ElevatedButton(onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
-                    minimumSize: Size.fromHeight(60),
+                    minimumSize: const Size.fromHeight(60),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                   child: const Text(
                     'Continue Shopping',
@@ -50,6 +53,39 @@ class CartScreen extends StatelessWidget {
                   ),
               ),
             ),
+            const SizedBox(height: 300,),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text("Total: \$",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                  ),
+                  const Text("00.00",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.red,
+                  ),
+                  ),
+                  const SizedBox(width: 30,),
+                  Expanded(
+                    child: ElevatedButton(onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.purple,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                          )
+                        ),
+                        child: const Text(
+                          'Checkout',
+                        )),
+                  ),
+                ],
+              ),
+            )
           ],
         )
       ),
